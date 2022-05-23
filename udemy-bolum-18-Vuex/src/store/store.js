@@ -16,7 +16,7 @@ export const store = new Vuex.Store({
         }
     },
     mutations: {
-        counterArttir(state, value) {
+        updateCounter(state, value) {
             state.counter += value;
         }
     }
