@@ -25,6 +25,9 @@ export default {
       title: "Bolum 19",
     };
   },
+  created() {
+    this.$store.dispatch("getTradeResult")
+  },
   components: { Header, Footer, ProductBuy, ProductList, ProductSell }
 }
 </script>
