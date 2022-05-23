@@ -8,7 +8,7 @@
                         <hr />
                         <div class="form-group">
                             <label>Ürün Adı</label>
-                            <select class="form-control">
+                            <select class="form-select">
                                 <option value="1">Ürün 1</option>
                                 <option value="1">Ürün 2</option>
                                 <option value="1">Ürün 3</option>

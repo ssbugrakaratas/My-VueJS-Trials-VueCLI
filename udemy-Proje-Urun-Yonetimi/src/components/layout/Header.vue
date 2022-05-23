@@ -2,15 +2,15 @@
     <div class="header">
         <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #563F7A">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Ürün Listesi</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Ürün İşlemleri</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Ürün Çıkışı</a>
-                </li>
+                <router-link to="/" tag="li" class="nav-item" active-class="active" exact>
+                    <a class="nav-link">Ürün Listesi</a>
+                </router-link>
+                <router-link to="/urun-islemleri" tag="li" class="nav-item" active-class="active" exact>
+                    <a class="nav-link">Ürün İşlemleri</a>
+                </router-link>
+                <router-link to="/urun-cikisi" tag="li" class="nav-item" active-class="active" exact>
+                    <a class="nav-link">Ürün Çıkışı</a>
+                </router-link>
             </ul>
         </nav>
     </div>
@@ -20,5 +20,9 @@
 
 </script>
 
-<style>
+<style scoped>
+li.active a {
+    font-weight: bold;
+    color: whitesmoke;
+}
 </style>
