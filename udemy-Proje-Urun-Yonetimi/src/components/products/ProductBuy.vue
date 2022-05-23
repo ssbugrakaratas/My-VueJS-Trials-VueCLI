@@ -8,22 +8,22 @@
                         <hr />
                         <div class="form-group">
                             <label>Ürün Adı</label>
-                            <input type="text" class="form-control" placeholder="Ürün adını giriniz.." />
+                            <input v-model="product.name" type="text" class="form-control" placeholder="Ürün adını giriniz.." />
                         </div>
                         <div class="form-group">
                             <label>Adet</label>
-                            <input type="text" class="form-control" placeholder="Ürün adetini giriniz.." />
+                            <input v-model="product.quantity" type="number" class="form-control" placeholder="Ürün adetini giriniz.." />
                         </div>
                         <div class="form-group">
                             <label>Fiyat</label>
-                            <input type="text" class="form-control" placeholder="Ürün fiyatı giriniz.." />
+                            <input v-model="product.price" type="number" class="form-control" placeholder="Ürün fiyatı giriniz.." />
                         </div>
                         <div class="form-group">
                             <label>Açıklama</label>
-                            <textarea cols="30" rows="5" placeholder="Ürüne ait bir açıklama giriniz..." class="form-control"></textarea>
+                            <textarea v-model="product.description" cols="30" rows="5" placeholder="Ürüne ait bir açıklama giriniz..." class="form-control"></textarea>
                         </div>
                         <hr />
-                        <button class="btn btn-primary">Kaydet</button>
+                        <button @click="saveProduct" class="btn btn-primary">Kaydet</button>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,23 @@
 </template>
 
 <script>
-
+export default {
+    data() {
+        return {
+            product: {
+                name: "",
+                quantity: null,
+                price: null,
+                description: ""
+            }
+        }
+    },
+    methods: {
+        saveProduct() {
+            this.$store.dispatch("saveProduct", this.product)
+        }
+    },
+}
 </script>
 
 <style>
