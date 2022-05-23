@@ -10,6 +10,14 @@ export const store = new Vuex.Store({
     getters: {
         getCounterCarpimBes(state) {
             return state.counter * 5;
+        },
+        getStringCounter(state) {
+            return state.counter + " .kez tıklandı";
+        }
+    },
+    mutations: {
+        counterArttir(state, value) {
+            state.counter += value;
         }
     }
 });
