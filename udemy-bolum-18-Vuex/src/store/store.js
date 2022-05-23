@@ -5,7 +5,8 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        counter: 0
+        counter: 0,
+        value: 0
     },
     getters: {
         getCounterCarpimBes(state) {
@@ -13,6 +14,9 @@ export const store = new Vuex.Store({
         },
         getStringCounter(state) {
             return state.counter + " .kez tıklandı";
+        },
+        getValue(state) {
+            return state.value;
         }
     },
     mutations: {
@@ -21,6 +25,9 @@ export const store = new Vuex.Store({
         },
         decrementCounter(state) {
             state.counter--;
+        },
+        setValue(state, payload) {
+            state.value = payload;
         }
     },
     actions: {
@@ -39,6 +46,9 @@ export const store = new Vuex.Store({
             setTimeout(() => {
                 commit("decrementCounter");
             }, 2000);
+        },
+        setValueData({ commit }, payload) {
+            commit("setValue", payload);
         }
     }
 });
