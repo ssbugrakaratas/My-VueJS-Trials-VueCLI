@@ -7,12 +7,12 @@
 
 <script>
 export default {
-  methods : {
-    incrementCounter(){
-      this.$emit("counterEvent", 1);
+  methods: {
+    incrementCounter() {
+      this.$store.state.counter++
     },
-    decrementCounter(){
-      this.$emit("counterEvent", -1);
+    decrementCounter() {
+      this.$store.state.counter--
     }
   }
 }
