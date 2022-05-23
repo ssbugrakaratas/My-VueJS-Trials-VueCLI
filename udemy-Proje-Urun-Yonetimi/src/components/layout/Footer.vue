@@ -2,7 +2,7 @@
     <div class="footer">
         <nav class="navbar fixed-bottom  navbar-light" style="background-color: #e3f2fd;">
             <span class="navbar-text mr-auto">
-                <strong> <a href="localhost:8080">Main Page</a> </strong> | ssbugrakaratas
+                <strong> <a href="http://localhost:8080">Main Page</a> </strong> | ssbugrakaratas
             </span>
             <span class="navbar-text navbar-nav my-2 my-lg-0 mr-3">
                 <strong>Alış Tutarı : </strong>

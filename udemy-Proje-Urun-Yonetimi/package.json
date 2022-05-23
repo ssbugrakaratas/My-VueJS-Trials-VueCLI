@@ -11,7 +11,7 @@
     },
     "dependencies": {
         "vue": "^2.5.11",
-        "vue-router": "^4.0.15",
+        "vue-router": "^3.5.4",
         "vuex": "^3.0.1"
     },
     "browserslist": [
