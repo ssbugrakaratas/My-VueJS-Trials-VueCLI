@@ -6,5 +6,10 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
     state: {
         counter: 0
+    },
+    getters: {
+        getCounterCarpimBes(state) {
+            return state.counter * 5;
+        }
     }
 });

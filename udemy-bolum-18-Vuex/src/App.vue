@@ -8,6 +8,8 @@
 
     <Result :counter="counter"></Result>
     <hr>
+    <Result2 :counter="counter"></Result2>
+    <hr>
     <Counter @counterEvent="counter += $event"></Counter>
 
 
@@ -18,6 +20,7 @@
 <script>
 import Result from './components/Result.vue';
 import Counter from './components/Counter.vue';
+import Result2 from './components/Result2.vue';
 
 export default {
   name: "app",
@@ -27,7 +30,7 @@ export default {
       counter: 0,
     };
   },
-  components: { Result, Counter }
+  components: { Result, Counter, Result2 }
 }
 </script>
 
