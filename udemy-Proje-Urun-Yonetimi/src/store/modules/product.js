@@ -9,7 +9,7 @@ const getters = {
         return state.products;
     },
     getProduct(state) {
-        return state.products[0];
+        //return state.products[0];
     }
 };
 
@@ -22,16 +22,25 @@ const mutations = {
 const actions = {
     initApp({ commit }) {
         //vue resource islemleri
-        state.commit("updateProductList");
+        //state.commit("updateProductList");
     },
-    saveProduct({ commit }, payload) {
+    saveProduct({ commit, state, dispatch }, payload) {
         Vue.http
             .post(
                 "https://udemy-vuejs-proje-urun-yonetim-default-rtdb.firebaseio.com/products.json",
                 payload
             )
             .then(response => {
-                console.log(response);
+                //listenin güncellenmesi
+                payload.key = response.data.name;
+                commit("updateProductList", payload);
+                //alış satış bakiye güncellenmesi
+                let tradeResult = {
+                    purchase: payload.price,
+                    sale: 0.0,
+                    quantity: payload.quantity
+                };
+                dispatch("setTradeResult", tradeResult);
             });
     },
     sellProduct({ commit }, payload) {
