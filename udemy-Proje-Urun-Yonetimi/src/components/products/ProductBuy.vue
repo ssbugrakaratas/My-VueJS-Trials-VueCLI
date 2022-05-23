@@ -23,7 +23,7 @@
                             <textarea v-model="product.description" cols="30" rows="5" placeholder="Ürüne ait bir açıklama giriniz..." class="form-control"></textarea>
                         </div>
                         <hr />
-                        <button @click="saveProduct" class="btn btn-primary">Kaydet</button>
+                        <button @click="saveProduct" class="btn btn-primary" :disabled="saveButtonEnabled">Kaydet</button>
                     </div>
                 </div>
             </div>
@@ -54,6 +54,15 @@ export default {
             this.$store.dispatch("saveProduct", this.product)
         }
     },
+    computed: {
+        saveButtonEnabled() {
+            if (this.product.name.length > 0 && this.product.quantity > 0 && this.product.price > 0 && this.product.description.length > 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
 }
 </script>
 
