@@ -90,9 +90,22 @@ export default {
                 key: this.selectedProduct,
                 count: this.sell_count
             }
+            this.saveButtonClicked = true
             this.$store.dispatch("sellProduct", product)
         }
     },
+    beforeRouteLeave(to, from, next) {
+        if (!this.saveButtonClicked && (this.sell_count > 0 || this.selectedProduct != null)) {
+            if (confirm("kaydedilmemiş değişiklikler var. Yinede çıkış yapacak mısınız?")) {
+                next()
+            }
+            else {
+                next(false)
+            }
+        } else {
+            next()
+        }
+    }
 }
 </script>
 
