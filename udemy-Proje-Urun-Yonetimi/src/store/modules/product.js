@@ -22,8 +22,17 @@ const mutations = {
 
 const actions = {
     initApp({ commit }) {
-        //vue resource islemleri
-        //state.commit("updateProductList");
+        Vue.http
+            .get(
+                "https://udemy-vuejs-proje-urun-yonetim-default-rtdb.firebaseio.com/products.json"
+            )
+            .then(response => {
+                let data = response.data;
+                for (let key in data) {
+                    data[key].key = key;
+                    commit("updateProductList", data[key]);
+                }
+            });
     },
     saveProduct({ commit, state, dispatch }, payload) {
         Vue.http

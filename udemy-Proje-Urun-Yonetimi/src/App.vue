@@ -21,6 +21,7 @@ export default {
   name: "app",
   created() {
     this.$store.dispatch("getTradeResult")
+    this.$store.dispatch("initApp")
   },
   components: { Header, Footer, ProductBuy, ProductList, ProductSell }
 }
