@@ -6,7 +6,7 @@
       <hr>
     </div>
 
-    <Tags></Tags>
+    <Tags v-model="tags"></Tags>
 
   </div>
 </template>
@@ -17,7 +17,8 @@ export default {
   name: "app",
   data() {
     return {
-      title: "Bolum-21"
+      title: "Bolum-21",
+      tags: "ali,veli"
     };
   },
   components: { Tags }
