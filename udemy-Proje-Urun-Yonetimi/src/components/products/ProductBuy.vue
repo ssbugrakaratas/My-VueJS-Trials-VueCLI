@@ -46,11 +46,13 @@ export default {
                 quantity: null,
                 price: null,
                 description: ""
-            }
+            },
+            saveButtonClicked: false
         }
     },
     methods: {
         saveProduct() {
+            this.saveButtonClicked = true
             this.$store.dispatch("saveProduct", this.product)
         }
     },
@@ -61,6 +63,18 @@ export default {
             } else {
                 return true;
             }
+        },
+    },
+    beforeRouteLeave(to, from, next) {
+        if (!this.saveButtonClicked && (this.product.name.length > 0 || this.product.quantity > 0 || this.product.price > 0 || this.product.description.length > 0)) {
+            if (confirm("kaydedilmemiş değişiklikler var. Yinede çıkış yapacak mısınız?")) {
+                next()
+            }
+            else {
+                next(false)
+            }
+        } else {
+            next()
         }
     }
 }
