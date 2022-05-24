@@ -1,3 +1,5 @@
+//Coded By Samed Buğra KARATAŞ
+
 export const updateTradeResult = (state, payload) => {
     if (payload.quantity) {
         state.purchase += parseFloat(payload.purchase) * parseInt(payload.quantity);

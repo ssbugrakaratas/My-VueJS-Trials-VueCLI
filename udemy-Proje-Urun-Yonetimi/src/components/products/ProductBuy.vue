@@ -1,3 +1,5 @@
+<!--Coded By Samed Buğra KARATAŞ-->
+
 <template>
     <div class="buy">
         <div class="loading" :style="isLoading">

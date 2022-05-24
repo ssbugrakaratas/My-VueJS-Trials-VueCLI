@@ -1,3 +1,5 @@
+//Coded By Samed Buğra KARATAŞ
+
 import Vue from "vue";
 
 export const setTradeResult = ({ state, commit }, tradeResult) => {

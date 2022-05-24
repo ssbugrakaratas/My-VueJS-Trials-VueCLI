@@ -1,3 +1,5 @@
+<!--Coded By Samed Buğra KARATAŞ-->
+
 <template>
     <div class="header">
         <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #563F7A">

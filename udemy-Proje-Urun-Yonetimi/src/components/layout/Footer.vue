@@ -1,3 +1,5 @@
+<!--Coded By Samed Buğra KARATAŞ-->
+
 <template>
     <div class="footer">
         <nav class="navbar fixed-bottom  navbar-light" style="background-color: #e3f2fd;">

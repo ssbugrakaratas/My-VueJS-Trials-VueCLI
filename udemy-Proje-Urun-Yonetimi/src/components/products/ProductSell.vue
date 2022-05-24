@@ -1,3 +1,5 @@
+<!--Coded By Samed Buğra KARATAŞ-->
+
 <template>
     <div class="sell">
         <div class="loading" :style="isLoading">
