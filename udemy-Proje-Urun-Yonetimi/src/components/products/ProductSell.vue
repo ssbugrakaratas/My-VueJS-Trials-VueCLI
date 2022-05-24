@@ -15,7 +15,8 @@
                         <div class="form-group">
                             <label>Ürün Adı</label>
                             <select @change="productSelected" v-model="selectedProduct" class="form-control">
-                                <option :value="product.key" v-for="product in getProducts">{{ product.name }}</option>
+                                <option disabled selected>Seçiniz...</option>
+                                <option :value="product.key" v-for="product in getProducts" :disabled="product.quantity <= 0">{{ product.name }}</option>
                             </select>
                         </div>
                         <transition name="fade" mode="out-in">
@@ -35,10 +36,10 @@
                         </transition>
                         <div class="form-group">
                             <label>Adet</label>
-                            <input type="text" class="form-control" placeholder="Ürün adetini giriniz.." />
+                            <input v-model="sell_count" type="number" class="form-control" placeholder="Ürün adetini giriniz.." />
                         </div>
                         <hr />
-                        <button class="btn btn-primary">Kaydet</button>
+                        <button @click="save" class="btn btn-primary" :disabled="saveButtonEnabled">Kaydet</button>
                     </div>
                 </div>
             </div>
@@ -54,11 +55,19 @@ export default {
         return {
             selectedProduct: null,
             saveButtonClicked: false,
-            product: null
+            product: null,
+            sell_count: null
         }
     },
     computed: {
         ...mapGetters(["getProducts"]),
+        saveButtonEnabled() {
+            if (this.sell_count > 0 && this.selectedProduct != null) {
+                return false;
+            } else {
+                return true;
+            }
+        },
         isLoading() {
             if (this.saveButtonClicked) {
                 return {
@@ -75,6 +84,13 @@ export default {
         productSelected() {
             this.product = this.$store.getters.getProduct(this.selectedProduct)[0]
 
+        },
+        save() {
+            let product = {
+                key: this.selectedProduct,
+                count: this.sell_count
+            }
+            this.$store.dispatch("sellProduct", product)
         }
     },
 }

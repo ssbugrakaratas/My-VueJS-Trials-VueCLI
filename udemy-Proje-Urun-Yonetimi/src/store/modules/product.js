@@ -57,8 +57,33 @@ const actions = {
                 router.replace("/");
             });
     },
-    sellProduct({ commit }, payload) {
-        //vue resource islemleri
+    sellProduct({ state, commit, dispatch }, payload) {
+        //pass by reference
+        //pass by value...
+
+        let product = state.products.filter(element => {
+            return element.key == payload.key;
+        });
+
+        if (product) {
+            let last_count = product[0].quantity - payload.count;
+            Vue.http
+                .patch(
+                    "https://udemy-vuejs-proje-urun-yonetim-default-rtdb.firebaseio.com/products/" +
+                    payload.key +
+                    ".json", { quantity: last_count }
+                )
+                .then(response => {
+                    product[0].quantity = last_count;
+                    let tradeResult = {
+                        purchase: 0.0,
+                        sale: product[0].price,
+                        quantity: payload.count
+                    };
+                    dispatch("setTradeResult", tradeResult);
+                    router.replace("/");
+                });
+        }
     }
 };
 

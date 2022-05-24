@@ -52,8 +52,8 @@ export default {
     methods: {
         quantityBackground(quantity) {
             return {
-                'btn-danger text-white': 0 < quantity && quantity < 5,
-                'btn-success text-white': 5 <= quantity
+                'bg-danger text-white': 0 < quantity && quantity < 5,
+                'bg-success text-white': 5 <= quantity
             }
         }
     },
