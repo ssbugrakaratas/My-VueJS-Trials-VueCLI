@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-    <div class="container text-center">
-      <br>
-      <h1>{{ title }}</h1>
-      <hr>
-    </div>
     <Header></Header>
-    <router-view></router-view>
+    <div class="contentBody">
+      <transition name="fade" mode="out-in">
+        <router-view></router-view>
+      </transition>
+    </div>
     <Footer></Footer>
   </div>
 </template>
@@ -20,11 +19,6 @@ import ProductSell from "./components/products/ProductSell.vue";
 
 export default {
   name: "app",
-  data() {
-    return {
-      title: "Bolum 19",
-    };
-  },
   created() {
     this.$store.dispatch("getTradeResult")
   },
@@ -33,4 +27,23 @@ export default {
 </script>
 
 <style>
+body {
+  background-color: #e6e6e6;
+
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  transition: opacity .3s ease-out;
+}
+
+.fade-leave {}
+
+.fade-leave-active {
+  transition: opacity .3s ease-out;
+  opacity: 0;
+}
 </style>

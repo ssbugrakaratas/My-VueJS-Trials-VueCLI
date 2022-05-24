@@ -1,5 +1,11 @@
 <template>
     <div class="buy">
+        <div class="loading" :style="isLoading">
+            <div class="lds-ripple">
+                <div></div>
+                <div></div>
+            </div>
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-6 offset-3 pt-3 card mt-5 shadow">
@@ -26,12 +32,6 @@
                         <button @click="saveProduct" class="btn btn-primary" :disabled="saveButtonEnabled">Kaydet</button>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="loading">
-            <div class="lds-ripple">
-                <div></div>
-                <div></div>
             </div>
         </div>
     </div>
@@ -64,6 +64,17 @@ export default {
                 return true;
             }
         },
+        isLoading() {
+            if (this.saveButtonClicked) {
+                return {
+                    display: "block"
+                }
+            } else {
+                return {
+                    display: "none"
+                }
+            }
+        }
     },
     beforeRouteLeave(to, from, next) {
         if (!this.saveButtonClicked && (this.product.name.length > 0 || this.product.quantity > 0 || this.product.price > 0 || this.product.description.length > 0)) {

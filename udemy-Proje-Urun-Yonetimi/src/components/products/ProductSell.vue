@@ -1,5 +1,11 @@
 <template>
     <div class="sell">
+        <div class="loading">
+            <div class="lds-ripple">
+                <div></div>
+                <div></div>
+            </div>
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-6 offset-3 pt-3 card mt-5 shadow">
@@ -41,12 +47,6 @@
                         <button class="btn btn-primary">Kaydet</button>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="loading">
-            <div class="lds-ripple">
-                <div></div>
-                <div></div>
             </div>
         </div>
     </div>
