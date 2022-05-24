@@ -20,8 +20,8 @@
                                         <span class="badge badge-info">{{ product.key }}</span>
                                     </td>
                                     <td class="align-middle text-center">{{ product.name }}</td>
-                                    <td class="align-middle text-center">{{ product.quantity }}</td>
-                                    <td style="width: 120px;">{{ product.price }}</td>
+                                    <td class="align-middle text-center" :class="quantityBackground(product.quantity)">{{ product.quantity }}</td>
+                                    <td style="width: 120px;">{{ product.price | currency }}</td>
                                     <td class="align-middle">{{ product.description }}</td>
                                 </tr>
                             </tbody>
@@ -47,8 +47,16 @@ export default {
     computed: {
         ...mapGetters([
             "getProducts"
-        ])
-    }
+        ]),
+    },
+    methods: {
+        quantityBackground(quantity) {
+            return {
+                'btn-danger text-white': 0 < quantity && quantity < 5,
+                'btn-success text-white': 5 <= quantity
+            }
+        }
+    },
 }
 </script>
 

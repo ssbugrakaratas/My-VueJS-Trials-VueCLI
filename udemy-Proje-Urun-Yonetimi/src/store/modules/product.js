@@ -10,7 +10,10 @@ const getters = {
         return state.products;
     },
     getProduct(state) {
-        //return state.products[0];
+        return key =>
+            state.products.filter(element => {
+                return element.key == key;
+            });
     }
 };
 
