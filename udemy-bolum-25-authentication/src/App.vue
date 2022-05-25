@@ -6,7 +6,7 @@
       <hr>
     </div>
     <Header></Header>
-    <HomePage></HomePage>
+    <Homepage></Homepage>
   </div>
 </template>
 <script>
