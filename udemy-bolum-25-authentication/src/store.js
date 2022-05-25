@@ -10,7 +10,9 @@ const store = new Vuex.Store({
         firebaseAPIkey: "AIzaSyC10xCH5qDLskp59AosjvJnqs9WtxUtuK4"
     },
     getters: {
-        //getToken(){
+        getToken(state) {
+            return state.token;
+        }
     },
     mutations: {
         setToken(state, token) {
@@ -29,14 +31,14 @@ const store = new Vuex.Store({
                     "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
             }
 
-            axios
+            return axios
                 .post(authLink + "AIzaSyC10xCH5qDLskp59AosjvJnqs9WtxUtuK4", {
                     email: authData.email,
                     password: authData.password,
                     returnSecureToken: true
                 })
                 .then(response => {
-                    console.log(response);
+                    commit("setToken", response.data.idToken);
                 })
                 .catch(e => {
                     console.log(e);
@@ -46,10 +48,10 @@ const store = new Vuex.Store({
             //çıkış yap
         }
         /*
-                            login(vuexContext){
-                                vuexContext.commit()
-                            }
-                            */
+                                                        login(vuexContext){
+                                                            vuexContext.commit()
+                                                        }
+                                                        */
     }
 });
 
