@@ -1,6 +1,6 @@
 <template>
     <div class="tag-container">
-        <Tag v-for="(tag, index) in tags" :key="index" :tag="tag" :index="index" @deleteTagWithIndexEvent="deleteTagWithIndex($event)"></Tag>
+        <Tag v-for="(tag, index) in tags" :key="index" :tagColor="color" :tag="tag" :index="index" @deleteTagWithIndexEvent="deleteTagWithIndex($event)"></Tag>
 
         <input type="text" @keyup.enter="addTag" @keyup.backspace="deleteTag">
         <div class="error" v-if="error == 'bulundu'">Bu tag zaten vardır!!!</div>
@@ -19,7 +19,8 @@ export default {
         };
     },
     props: {
-        value: { required: false }
+        value: { required: false },
+        color: { type: String, required: false, default: "bg-primary" }
     },
     created() {
         if (this.value) {
@@ -63,6 +64,11 @@ export default {
         },
         deleteTagWithIndex(index) {
             this.tags.splice(index, 1);
+        }
+    },
+    watch: {
+        tags() {
+            this.$emit("input", this.tags.join(","))
         }
     },
     components: { Tag }

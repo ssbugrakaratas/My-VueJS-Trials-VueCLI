@@ -6,8 +6,12 @@
       <hr>
     </div>
 
-    <Tags v-model="tags"></Tags>
-
+    <Tags v-model="tags" color="bg-secondary"></Tags>
+    {{ tags }}
+    <Tags v-model="tags" color="bg-danger"></Tags>
+    {{ tags }}
+    <Tags v-model="tags" color="bg-success"></Tags>
+    {{ tags }}
   </div>
 </template>
 

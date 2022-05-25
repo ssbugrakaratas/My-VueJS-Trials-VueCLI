@@ -1,5 +1,5 @@
 <template>
-    <span class="tag">
+    <span class="tag" :class="tagColor">
         <span class="tag-content">{{ tag }}</span>
         <span class="tag-close" @click="$emit('deleteTagWithIndexEvent', index)">x</span>
     </span>
@@ -7,7 +7,7 @@
 
 <script>
 export default {
-    props: ["tag", "index"]
+    props: ["tag", "index", "tagColor"]
 }
 </script>
 
