@@ -29,23 +29,32 @@
   </div>
 </template>
 <script>
-  export default {
-    data(){
-      return {
-        post : {
-          author : "",
-          content : "",
-          previewText : "",
-          thumbnail : "",
-          title : "",
-          updatedDate : ""
-        }
-      }
-    },
-    methods : {
-      onSubmit(){
-        console.log({ ...this.post, updatedDate : new Date()});
+import axios from "axios"
+
+export default {
+  data() {
+    return {
+      post: {
+        author: "",
+        content: "",
+        previewText: "",
+        thumbnail: "",
+        title: "",
+        updatedDate: ""
       }
     }
+  },
+  methods: {
+    onSubmit() {
+      this.post.updatedDate = new Date()
+
+      axios.post("https://udemy-vuejs-proje-blog-axios-default-rtdb.firebaseio.com/posts.json", { ...this.post })
+        .then(response => {
+          console.log(response.data)
+        }).catch(e => {
+          console.log(e);
+        })
+    }
   }
+}
 </script>
