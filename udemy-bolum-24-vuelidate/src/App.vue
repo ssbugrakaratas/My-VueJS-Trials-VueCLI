@@ -71,7 +71,7 @@
           </form>
         </div>
         <div class="card p-4 m-5 shadow" style="width: 400px;">
-          <p>{{ $v.hobbies }}</p>
+          <p>{{ $v.email }}</p>
         </div>
       </div>
     </div>
@@ -99,6 +99,21 @@ export default {
     email: {
       required,
       email,
+      customUniqueCheck: value => {
+        /*
+        //axios kullansaydık direk olarak bunun asenkron olduğunu .then tarafından anlayıp asenkron çalışacaktı
+        return axios.get("url").then(response => {
+          return response
+        })
+        */
+
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            //resolve(false)
+            resolve(value !== 'test@test.com')
+          }, 2000);
+        })
+      }
     },
     password: {
       required,
