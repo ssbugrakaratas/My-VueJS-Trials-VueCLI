@@ -9,55 +9,47 @@
     <div class="container">
       <h3 class="text-center mt-5">Vuelidate ile Form Kontrolü</h3>
       <div class="d-flex justify-content-center align-content-center flex-row">
-        <div class="card p-4 mt-5  shadow">
-          <form style="width: 350px">
+        <div class="card p-4 m-5 shadow" style="width: 400px">
+          <form @submit.prevent="onSubmit">
             <div class="form-group">
               <label>E-posta Adresiniz</label>
-              <input type="email" class="form-control" placeholder="E-posta adresini giriniz">
-              <small class="form-text text-muted">Hata Mesajı</small>
+              <input @blur="$v.email.$touch()" v-model="email" type="email" class="form-control" :class="{ 'is-invalid': $v.email.$error }" placeholder="E-posta adresini giriniz">
+              <small v-if="!$v.email.required" class="form-text text-danger">Bu alan zorunludur!!!</small>
+              <small v-if="!$v.email.email" class="form-text text-danger">Bu alan email olmak zorundadır!!!</small>
             </div>
             <div class="form-group">
               <label>Şifre</label>
-              <input type="password" class="form-control" placeholder="Şifrenizi giriniz">
+              <input v-model="password" type="password" class="form-control" placeholder="Şifrenizi giriniz">
             </div>
             <div class="form-group">
               <label>Şifre Tekrar</label>
-              <input type="password" class="form-control" placeholder="Şifrenizi tekrar giriniz">
+              <input v-model="repassword" type="password" class="form-control" placeholder="Şifrenizi tekrar giriniz">
             </div>
             <div class="form-group">
               <label>Kayıt olmak istediğiniz kategori</label>
-              <select class="form-control">
-                <option value="1">Yazılım</option>
-                <option value="1">Donanım</option>
-                <option value="1">Cloud</option>
-                <option value="1">Sunucular</option>
-                <option value="1">Unix</option>
-                <option value="1">Linux</option>
-                <option value="1">Mac OS</option>
-                <option value="1">Windows</option>
+              <select v-model="selectedCategory" class="form-control">
+                <option selected disabled>Seçiniz...</option>
+                <option v-for="category in categories" :value="category">{{ category }}</option>
               </select>
             </div>
+            <label>Hobiler</label>
+            <div>
+              <ul class="list-group mt-3 mb-3 border-0" v-if="hobbies.length > 0">
+                <li v-for="(hobby, index) in hobbies" class="list-group-item d-flex pl-2">
+                  <input type="text" class="form-control mr-2" v-model="hobby.value">
+                  <button class="btn btn-sm btn-danger rounded-0" @click="hobbies.splice(index, 1)">Sil</button>
+                </li>
+              </ul>
+              <a @click="newHobby" class="text-white btn btn-secondary rounded-0 btn-sm">Hobi Ekle</a>
+            </div>
 
-            <button class="btn btn-secondary rounded-0 btn-sm">İlgi Alanı Ekle</button>
-
-            <ul class="list-group mt-3 mb-3 border-0">
-              <li class="list-group-item d-flex pl-2">
-                <input type="text" class="form-control mr-2">
-                <button class="btn btn-sm btn-danger rounded-0 ">Sil</button>
-              </li>
-              <li class="list-group-item d-flex pl-2">
-                <input type="text" class="form-control mr-2">
-                <button class="btn btn-sm btn-danger rounded-0 ">Sil</button>
-              </li>
-              <li class="list-group-item d-flex pl-2">
-                <input type="text" class="form-control mr-2">
-                <button class="btn btn-sm btn-danger rounded-0 ">Sil</button>
-              </li>
-
-            </ul>
-
-            <button class="btn btn-outline-secondary rounded-0">Kaydet</button>
+            <div class="text-center">
+              <button class="btn btn-outline-success rounded-0">Kaydet</button>
+            </div>
           </form>
+        </div>
+        <div class="card p-4 m-5 shadow" style="width: 400px;">
+          <p>{{ $v }}</p>
         </div>
       </div>
     </div>
@@ -65,11 +57,43 @@
 </template>
 
 <script>
+import { required, email } from "vuelidate/lib/validators"
+
 export default {
   name: 'app',
   data() {
     return {
-      title: 'Bolum-24 Vuelidate'
+      title: 'Bolum-24 Vuelidate',
+      email: null,
+      password: null,
+      repassword: null,
+      selectedCategory: null,
+      categories: ["Yazılım", "Donanım", "Cloud", "Sunucular", "Unix", "Linux", "Mac OS", "Windows"],
+      hobbies: []
+    }
+  },
+  validations: {
+    email: {
+      required,
+      email,
+    }
+  },
+  methods: {
+    onSubmit() {
+      let form = {
+        email: this.email,
+        password: this.password,
+        category: this.category,
+        hobbies: this.hobbies,
+      }
+      console.log(form)
+    },
+    newHobby() {
+      let hobby = {
+        id: Math.random() * Math.random() * 1000,
+        value: ''
+      }
+      this.hobbies.push(hobby)
     }
   }
 }
