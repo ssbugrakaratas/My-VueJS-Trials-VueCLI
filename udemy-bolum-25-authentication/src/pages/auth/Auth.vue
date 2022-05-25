@@ -27,6 +27,8 @@
     </div>
 </template>
 <script>
+import axios from "axios"
+
 export default {
     data() {
         return {
@@ -39,7 +41,19 @@ export default {
     },
     methods: {
         onSubmit() {
-            alert(this.user)
+            let authLink = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key="
+            if (this.isUser) {
+                authLink = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key="
+            }
+
+            axios.post(authLink + "AIzaSyC10xCH5qDLskp59AosjvJnqs9WtxUtuK4",
+                { email: this.user.email, password: this.user.password, returnSecureToken: true }
+            ).then(response => {
+                console.log(response)
+            }).catch(e => {
+                console.log(e);
+            })
+
         }
     }
 }

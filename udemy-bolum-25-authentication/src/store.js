@@ -5,7 +5,8 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
-        token: ""
+        token: "",
+        firebaseAPIkey: "AIzaSyC10xCH5qDLskp59AosjvJnqs9WtxUtuK4"
     },
     getters: {
         //getToken(){
@@ -26,10 +27,10 @@ const store = new Vuex.Store({
             //çıkış yap
         }
         /*
-                login(vuexContext){
-                    vuexContext.commit()
-                }
-                */
+                    login(vuexContext){
+                        vuexContext.commit()
+                    }
+                    */
     }
 });
 
