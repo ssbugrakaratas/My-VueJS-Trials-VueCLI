@@ -66,7 +66,7 @@
             </div>
 
             <div class="text-center">
-              <button class="btn btn-outline-success rounded-0">Kaydet</button>
+              <button class="btn btn-outline-success rounded-0" :disabled="$v.$invalid">Kaydet</button>
             </div>
           </form>
         </div>
