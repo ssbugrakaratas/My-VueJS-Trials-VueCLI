@@ -48,7 +48,7 @@ export default {
     onSubmit() {
       this.post.updatedDate = new Date()
 
-      axios.post("https://udemy-vuejs-proje-blog-axios-default-rtdb.firebaseio.com/posts.json", { ...this.post })
+      axios.post("/posts.json", { ...this.post })
         .then(response => {
           console.log(response.data)
         }).catch(e => {
