@@ -51,9 +51,14 @@
             </div>
             <label>Hobiler</label>
             <div>
+              <div>
+                <small v-if="!$v.hobbies.required" class="form-text text-danger">Bu alan zorunludur!!!</small>
+                <small v-if="!$v.hobbies.minLength" class="form-text text-danger">Bu alana minimum {{ $v.hobbies.$params.minLength.min }} adet girin!!!</small>
+              </div>
               <ul class="list-group mt-3 mb-3 border-0" v-if="hobbies.length > 0">
                 <li v-for="(hobby, index) in hobbies" class="list-group-item d-flex pl-2">
-                  <input type="text" class="form-control mr-2" v-model="hobby.value">
+                  <p v-if="!$v.hobbies.$each[index].value.maxLength" class="form-text text-danger">Bu alana max {{ $v.hobbies.$each[index].value.$params.maxLength.max }} karakter girin!!!</p>
+                  <input @blur="$v.hobbies.$each[index].value.$touch()" type="text" class="form-control mr-2" :class="{ 'is-invalid': $v.hobbies.$each[index].$error }" v-model="hobby.value">
                   <button class="btn btn-sm btn-danger rounded-0" @click="hobbies.splice(index, 1)">Sil</button>
                 </li>
               </ul>
@@ -66,7 +71,7 @@
           </form>
         </div>
         <div class="card p-4 m-5 shadow" style="width: 400px;">
-          <p>{{ $v.selectedCategory }}</p>
+          <p>{{ $v.hobbies }}</p>
         </div>
       </div>
     </div>
@@ -120,6 +125,16 @@ export default {
     selectedCategory: {
       checked(val, vm) {
         return vm.selectedCategory === "Yazılım" ? true : false
+      }
+    },
+    hobbies: {
+      required,
+      minLength: minLength(2),
+      $each: {
+        value: {
+          required,
+          maxLength: maxLength(10)
+        }
       }
     }
   },
