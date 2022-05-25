@@ -19,7 +19,7 @@
             </div>
             <div class="form-group">
               <label>Şifre</label>
-              <input @blur="$v.email.$touch()" v-model="password" type="password" class="form-control" :class="{ 'is-invalid': $v.password.$error }" placeholder="Şifrenizi giriniz">
+              <input @blur="$v.password.$touch()" v-model="password" type="password" class="form-control" :class="{ 'is-invalid': $v.password.$error }" placeholder="Şifrenizi giriniz">
               <small v-if="!$v.password.required" class="form-text text-danger">Bu alan zorunludur!!!</small>
               <small v-if="!$v.password.numeric" class="form-text text-danger">Bu alan sayı olmak zorundadır!!!</small>
               <small v-if="!$v.password.minLength" class="form-text text-danger">Bu alana minimum {{ $v.password.$params.minLength.min }} hane girin!!!</small>
@@ -27,9 +27,12 @@
             </div>
             <div class="form-group">
               <label>Şifre Tekrar</label>
-              <input v-model="repassword" type="password" class="form-control" placeholder="Şifrenizi tekrar giriniz">
-              <small v-if="!$v.email.required" class="form-text text-danger">Bu alan zorunludur!!!</small>
-              <small v-if="!$v.email.email" class="form-text text-danger">Bu alan email olmak zorundadır!!!</small>
+              <input @blur="$v.repassword.$touch()" v-model="repassword" type="password" class="form-control" :class="{ 'is-invalid': $v.repassword.$error }" placeholder="Şifrenizi tekrar giriniz">
+              <small v-if="!$v.repassword.required" class="form-text text-danger">Bu alan zorunludur!!!</small>
+              <small v-if="!$v.repassword.numeric" class="form-text text-danger">Bu alan sayı olmak zorundadır!!!</small>
+              <small v-if="!$v.repassword.minLength" class="form-text text-danger">Bu alana minimum {{ $v.repassword.$params.minLength.min }} hane girin!!!</small>
+              <small v-if="!$v.repassword.maxLength" class="form-text text-danger">Bu alana maximum {{ $v.repassword.$params.maxLength.max }} hane girin!!!</small>
+              <small v-if="!$v.repassword.sameAs" class="form-text text-danger">Bu alan ile yukarıdaki şifre aynı olmalıdır</small>
             </div>
             <div class="form-group">
               <label>Kayıt olmak istediğiniz kategori</label>
@@ -55,7 +58,7 @@
           </form>
         </div>
         <div class="card p-4 m-5 shadow" style="width: 400px;">
-          <p>{{ $v.password }}</p>
+          <p>{{ $v.repassword }}</p>
         </div>
       </div>
     </div>
@@ -63,7 +66,7 @@
 </template>
 
 <script>
-import { required, email, numeric, minLength, maxLength } from "vuelidate/lib/validators"
+import { required, email, numeric, minLength, maxLength, sameAs } from "vuelidate/lib/validators"
 
 export default {
   name: 'app',
@@ -88,7 +91,13 @@ export default {
       numeric,
       minLength: minLength(4),
       maxLength: maxLength(6)
-
+    },
+    repassword: {
+      required,
+      numeric,
+      minLength: minLength(4),
+      maxLength: maxLength(6),
+      sameAs: sameAs('password')
     }
   },
   methods: {
