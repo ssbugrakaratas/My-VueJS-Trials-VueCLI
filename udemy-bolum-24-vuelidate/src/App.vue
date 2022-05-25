@@ -35,11 +35,19 @@
               <small v-if="!$v.repassword.sameAs" class="form-text text-danger">Bu alan ile yukarıdaki şifre aynı olmalıdır</small>
             </div>
             <div class="form-group">
+              <label>Yaş</label>
+              <input @blur="$v.yas.$touch()" v-model="yas" type="text" class="form-control" :class="{ 'is-invalid': $v.yas.$error }" placeholder="Yaşınızı giriniz">
+              <small v-if="!$v.yas.required" class="form-text text-danger">Bu alan zorunludur!!!</small>
+              <small v-if="!$v.yas.numeric" class="form-text text-danger">Bu alan sayı olmak zorundadır!!!</small>
+              <small v-if="!$v.yas.between" class="form-text text-danger">Bu alan {{ $v.yas.$params.between.min }}-{{ $v.yas.$params.between.max }} aralığında olmalıdır</small>
+            </div>
+            <div class="form-group">
               <label>Kayıt olmak istediğiniz kategori</label>
-              <select v-model="selectedCategory" class="form-control">
+              <select v-model="$v.selectedCategory.$model" class="form-control">
                 <option selected disabled>Seçiniz...</option>
                 <option v-for="category in categories" :value="category">{{ category }}</option>
               </select>
+              <small v-if="!$v.selectedCategory.checked" class="form-text text-danger">Bugun yalnızca yazılım seçilebilir !!!</small>
             </div>
             <label>Hobiler</label>
             <div>
@@ -58,7 +66,7 @@
           </form>
         </div>
         <div class="card p-4 m-5 shadow" style="width: 400px;">
-          <p>{{ $v.repassword }}</p>
+          <p>{{ $v.selectedCategory }}</p>
         </div>
       </div>
     </div>
@@ -66,7 +74,7 @@
 </template>
 
 <script>
-import { required, email, numeric, minLength, maxLength, sameAs } from "vuelidate/lib/validators"
+import { required, email, numeric, minLength, maxLength, sameAs, between } from "vuelidate/lib/validators"
 
 export default {
   name: 'app',
@@ -76,6 +84,7 @@ export default {
       email: null,
       password: null,
       repassword: null,
+      yas: null,
       selectedCategory: null,
       categories: ["Yazılım", "Donanım", "Cloud", "Sunucular", "Unix", "Linux", "Mac OS", "Windows"],
       hobbies: []
@@ -102,6 +111,16 @@ export default {
       sameAs: sameAs(vm => {
         return vm.password + "88"
       })
+    },
+    yas: {
+      required,
+      numeric,
+      between: between(18, 60)
+    },
+    selectedCategory: {
+      checked(val, vm) {
+        return vm.selectedCategory === "Yazılım" ? true : false
+      }
     }
   },
   methods: {
