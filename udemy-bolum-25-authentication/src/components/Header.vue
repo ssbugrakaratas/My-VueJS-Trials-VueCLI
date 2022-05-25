@@ -1,14 +1,16 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow mb-5">
-    <a class="navbar-brand" href="#">Auth İşlemleri</a>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-primary shadow mb-5">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item" tag="li">
-          <a class="nav-link" href="#">Anasayfa</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Hakkımda</a>
-        </li>
+        <router-link to="/auth" tag="li" class="nav-item" active-class="active" exact>
+          <a class="nav-link">Auth İşlemleri</a>
+        </router-link>
+        <router-link to="/" tag="li" class="nav-item" active-class="active" exact>
+          <a class="nav-link">Anasayfa</a>
+        </router-link>
+        <router-link to="/about" tag="li" class="nav-item" active-class="active" exact>
+          <a class="nav-link">Hakkımda</a>
+        </router-link>
       </ul>
       <ul class="navbar-nav my-2 my-lg-0" :class="logoutClass">
         <li class="nav-item">
@@ -19,17 +21,23 @@
   </nav>
 </template>
 <script>
-  export default {
-    methods: {
-      logout() {
-      }
-    },
-    computed: {
-      logoutClass() {
-        return {
-          'd-none': false
-        }
+export default {
+  methods: {
+    logout() {
+    }
+  },
+  computed: {
+    logoutClass() {
+      return {
+        'd-none': false
       }
     }
   }
+}
 </script>
+<style scoped>
+li.active a {
+  font-weight: bold;
+  color: whitesmoke;
+}
+</style>
