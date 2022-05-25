@@ -97,7 +97,11 @@ export default {
       numeric,
       minLength: minLength(4),
       maxLength: maxLength(6),
-      sameAs: sameAs('password')
+      //sameAs: sameAs('password')
+      //şifrenin sonunun 88 ile bittiği durumda true döndür
+      sameAs: sameAs(vm => {
+        return vm.password + "88"
+      })
     }
   },
   methods: {
