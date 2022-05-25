@@ -41,19 +41,7 @@ export default {
     },
     methods: {
         onSubmit() {
-            let authLink = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key="
-            if (this.isUser) {
-                authLink = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key="
-            }
-
-            axios.post(authLink + "AIzaSyC10xCH5qDLskp59AosjvJnqs9WtxUtuK4",
-                { email: this.user.email, password: this.user.password, returnSecureToken: true }
-            ).then(response => {
-                console.log(response)
-            }).catch(e => {
-                console.log(e);
-            })
-
+            this.$store.dispatch("login", { ...this.user, isUser: this.isUser })
         }
     }
 }
