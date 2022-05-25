@@ -24,7 +24,7 @@
         <textarea v-model="post.content" cols="30" rows="5" class="form-control"></textarea>
       </div>
       <button @click="$router.push('/')" class="btn btn-danger">İptal</button>
-      <button type="submit" class="btn btn-info">Kaydet</button>
+      <button @click="$router.push('/')" type="submit" class="btn btn-info">Kaydet</button>
     </form>
   </div>
 </template>
