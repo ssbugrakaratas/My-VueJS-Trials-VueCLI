@@ -29,10 +29,20 @@ const store = new Vuex.Store({
         initAuth({ commit, dispatch }) {
             let token = localStorage.getItem("token");
             if (token) {
-                commit("setToken", token);
-                router.push("/");
+                let expirationDate = localStorage.getItem("expirationDate");
+                let nowTime = new Date().getTime();
+
+                if (nowTime >= parseInt(expirationDate)) {
+                    console.log("token suresi geçmiş");
+                    dispatch("logout");
+                } else {
+                    commit("setToken", token);
+                    dispatch("setExpireTimerLogout", parseInt(expirationDate - nowTime));
+                    router.push("/");
+                }
             } else {
                 router.push("/auth");
+                return false;
             }
         },
         login({ commit, dispatch, state }, authData) {
@@ -51,6 +61,12 @@ const store = new Vuex.Store({
                 })
                 .then(response => {
                     commit("setToken", response.data.idToken);
+                    //yorumlanmış satırlar gerçek kullanıma uygun olacak şekilde tanımlanmıştır.
+                    //localStorage.setItem("expirationDate",new Date().getTime() + parseInt(response.data.expiresIn) * 1000);
+                    //dispatch("setExpireTimerLogout", parseInt(response.data.expiresIn));
+
+                    localStorage.setItem("expirationDate", new Date().getTime() + 10000);
+                    dispatch("setExpireTimerLogout", 10000);
                 })
                 .catch(e => {
                     console.log(e);
@@ -58,12 +74,14 @@ const store = new Vuex.Store({
         },
         logout({ commit }) {
             commit("clearToken");
+            localStorage.removeItem("expirationDate");
+            router.replace("/auth");
+        },
+        setExpireTimerLogout({ dispatch }, expiresIn) {
+            setTimeout(() => {
+                dispatch("logout");
+            }, expiresIn);
         }
-        /*
-                                                                                                        login(vuexContext){
-                                                                                                            vuexContext.commit()
-                                                                                                        }
-                                                                                                        */
     }
 });
 
